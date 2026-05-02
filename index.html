@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0036ab">
+  <meta name="description" content="Buzón PQRS - Alarmavision Services S.A.S.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="PQRS Alarmavision">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>Buzón PQRS - Alarmavision Services S.A.S.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<!-- INSTALL BANNER -->
+<div id="installBanner" class="install-banner hidden">
+  <span class="banner-icon">📲</span>
+  <span class="banner-text">Instala la app PQRS</span>
+  <button id="installBtn">Instalar</button>
+  <button id="installClose" aria-label="Cerrar">✕</button>
+</div>
+ 
+<div class="app-wrapper">
+ 
+  <!-- NAV TABS -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="form">📝 Nueva PQRS</button>
+    <button class="tab-btn" data-tab="consulta">🔍 Consultar</button>
+    <button class="tab-btn" data-tab="historial">
+      🕘 Historial <span id="historialBadge" class="hist-badge hidden">0</span>
+    </button>
+  </nav>
+
+  <!-- ===================== TAB: FORMULARIO ===================== -->
+  <div id="tab-form" class="tab-panel active">
+    <div class="form-container">
+
+    <!-- HEADER: logos en fila siempre -->
+    <div class="header">
+        <div class="logo-box">
+            <img src="imagenes/logo-png.png" alt="Alarmavision Services S.A.S.">
+        </div>
+        <div class="header-center">
+            <img src="imagenes/expresate.png" alt="Exprésate">
+        </div>
+        <div class="logo-box">
+            <img src="imagenes/logo-SG-SST.png" alt="Alarmavision SG-SST">
+        </div>
+    </div>
+
+          <!-- META BAR -->
+      <div class="meta-bar">
+        <span class="version-tag">Noviembre 2.019 &nbsp;|&nbsp; FT-ADM-014 V1</span>
+        <div class="fecha-wrap">
+          <span class="label">Fecha:</span>
+          <span class="fecha-auto" id="fechaAuto"></span>
+        </div>
+      </div>
+ 
+      <!-- FORM -->
+      <form id="pqrsForm" novalidate>
+        <div class="form-body">
+ 
+          <!-- DATOS + TIPO -->
+          <div class="datos-tipo">
+            <div class="datos-personales">
+              <div class="campo-linea">
+                <label for="nombre">Nombre completo: <span class="req">*</span></label>
+                <input type="text" id="nombre" name="nombre" class="linea" placeholder="Ingrese su nombre completo" required autocomplete="name">
+                <span class="error-msg" id="err-nombre"></span>
+              </div>
+              <div class="campo-linea">
+                <label for="documento">Documento de identidad: <span class="req">*</span></label>
+                <input type="text" id="documento" name="documento" class="linea" placeholder="CC / TI / CE / Pasaporte" required>
+                <span class="error-msg" id="err-documento"></span>
+              </div>
+              <div class="campo-linea">
+                <label for="cargo">Cargo:</label>
+                <input type="text" id="cargo" name="cargo" class="linea" placeholder="Opcional">
+              </div>
+            </div>
+ 
+            <div class="tipo-solicitud">
+              <div class="tipo-titulo">
+                Tipo de Solicitud<br>
+                <small>(Selecciona una opción) <span class="req">*</span></small>
+              </div>
+              <div class="checkboxes-grid">
+                <div class="check-item">
+                  <input type="radio" id="peticion" name="tipo" value="Petición">
+                  <label for="peticion">Petición</label>
+                </div>
+                <div class="check-item">
+                  <input type="radio" id="queja" name="tipo" value="Queja">
+                  <label for="queja">Queja</label>
+                </div>
+                <div class="check-item">
+                  <input type="radio" id="reclamo" name="tipo" value="Reclamo">
+                  <label for="reclamo">Reclamo</label>
+                </div>
+                <div class="check-item">
+                  <input type="radio" id="sugerencia" name="tipo" value="Sugerencia">
+                  <label for="sugerencia">Sugerencia</label>
+                </div>
+                <div class="check-item" style="grid-column:span 2">
+                  <input type="radio" id="felicitacion" name="tipo" value="Felicitación">
+                  <label for="felicitacion">Felicitación</label>
+                </div>
+              </div>
+              <span class="error-msg" id="err-tipo"></span>
+            </div>
+          </div>
+ 
+          <!-- DESCRIPCIÓN -->
+          <div class="seccion">
+            <div class="seccion-titulo">Descripción de la Solicitud</div>
+            <div class="seccion-subtitulo">(Explique de forma clara y detallada la situación, motivo o solicitud). <span class="req">*</span></div>
+            <textarea id="descripcionText" name="descripcion" class="descripcion-textarea"
+              placeholder="Escriba aquí su descripción..." required minlength="20"></textarea>
+            <span class="error-msg" id="err-descripcion"></span>
+          </div>
+ 
+          <!-- INFO READ-ONLY -->
+          <div class="respuesta-interna readonly-section">
+            <div class="ri-titulo">
+              Respuesta Interna
+              <span class="badge">uso exclusivo de la empresa</span>
+            </div>
+            <p class="readonly-note">⚠️ Esta sección será completada por la empresa una vez revisada su solicitud. Consulte el estado usando el ID que recibirá al enviar.</p>
+          </div>
+ 
+          <!-- SUBMIT -->
+          <div class="submit-area">
+            <button type="submit" class="btn-submit" id="btnSubmit">
+              <span id="btnText">📨 Enviar PQRS</span>
+              <span id="btnLoader" class="spinner hidden"></span>
+            </button>
+          </div>
+ 
+        </div>
+      </form>
+ 
+      <div class="footer">
+        <p>Gestión Administrativa &mdash; Formato PQRS</p>
+      </div>
+    </div>
+  </div><!-- /tab-form -->
+ 
+  <!-- ===================== TAB: CONSULTA ===================== -->
+  <div id="tab-consulta" class="tab-panel">
+    <div class="form-container">
+ 
+      <div class="header">
+        <div class="logo-box">
+          <img src="imagenes/logo-png.png" alt="Alarmavision" onerror="this.style.display='none'">
+        </div>
+        <div class="header-center">
+          <img src="imagenes/expresate.png" alt="Exprésate" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="expresate-fallback" style="display:none">EXPRÉSATE</div>
+        </div>
+        <div class="logo-box">
+          <img src="imagenes/logo-SG-SST.png" alt="SG-SST" onerror="this.style.display='none'">
+        </div>
+      </div>
+ 
+      <div class="form-body">
+        <div class="consulta-box">
+          <h2 class="consulta-titulo">🔍 Consultar Estado de PQRS</h2>
+          <p class="consulta-desc">Ingresa el ID único que recibiste al enviar tu solicitud.</p>
+          <div class="consulta-input-row">
+            <input type="text" id="consultaId" placeholder="Ej: PQRS-20240501-ABC123" class="linea consulta-input">
+            <button type="button" id="btnConsultar" class="btn-consultar">Consultar</button>
+          </div>
+          <div id="consultaResult"></div>
+        </div>
+      </div>
+ 
+      <div class="footer">
+        <p>Gestión Administrativa &mdash; Formato PQRS</p>
+      </div>
+    </div>
+  </div><!-- /tab-consulta -->
+ 
+  <!-- ===================== TAB: HISTORIAL ===================== -->
+  <div id="tab-historial" class="tab-panel">
+    <div class="form-container">
+ 
+      <div class="header">
+        <div class="logo-box">
+          <img src="imagenes/logo-png.png" alt="Alarmavision" onerror="this.style.display='none'">
+        </div>
+        <div class="header-center">
+          <img src="imagenes/expresate.png" alt="Exprésate" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="expresate-fallback" style="display:none">EXPRÉSATE</div>
+        </div>
+        <div class="logo-box">
+          <img src="imagenes/logo-SG-SST.png" alt="SG-SST" onerror="this.style.display='none'">
+        </div>
+      </div>
+ 
+      <div class="form-body">
+        <div class="historial-header">
+          <div>
+            <h2 class="consulta-titulo">🕘 Mis PQRS enviadas</h2>
+            <p class="consulta-desc">Solicitudes registradas desde este dispositivo.</p>
+          </div>
+          <button id="btnLimpiarTodo" class="btn-limpiar-todo" title="Eliminar todo el historial">
+            🗑 Limpiar todo
+          </button>
+        </div>
+        <div id="historialLista"></div>
+      </div>
+ 
+      <div class="footer">
+        <p>Gestión Administrativa &mdash; Formato PQRS</p>
+      </div>
+    </div>
+  </div><!-- /tab-historial -->
+ 
+</div><!-- /app-wrapper -->
+ 
+<!-- SUCCESS MODAL -->
+<div id="successModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-icon">✅</div>
+    <h2>¡PQRS Enviada!</h2>
+    <p>Tu solicitud fue registrada exitosamente.</p>
+    <div class="modal-id-box">
+      <span class="modal-id-label">Tu ID de seguimiento:</span>
+      <strong id="modalPqrsId" class="modal-id-value"></strong>
+      <button class="btn-copy" id="btnCopyId" title="Copiar ID">📋 Copiar</button>
+    </div>
+    <p class="modal-tip">Tu solicitud quedó guardada en el Historial de este dispositivo.</p>
+    <button class="btn-ok" id="btnModalOk">Aceptar</button>
+  </div>
+</div>
+ 
+<!-- CONFIRM DELETE MODAL -->
+<div id="confirmModal" class="modal-overlay hidden">
+  <div class="modal-box modal-box--small">
+    <div class="modal-icon">🗑</div>
+    <h2 id="confirmTitle">¿Eliminar esta PQRS?</h2>
+    <p id="confirmMsg">Se eliminará del historial de este dispositivo. El registro en la empresa no se verá afectado.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="btnConfirmCancel">Cancelar</button>
+      <button class="btn-delete" id="btnConfirmOk">Eliminar</button>
+    </div>
+  </div>
+</div>
+ 
+<script src="app.js"></script>
+</body>
+</html>
